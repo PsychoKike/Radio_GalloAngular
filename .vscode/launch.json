@@ -3,6 +3,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "RadioApiApplication",
+      "request": "launch",
+      "mainClass": "com.radiogalloInic.radio_api.RadioApiApplication",
+      "projectName": "radio_api"
+    },
+    {
       "name": "ng serve",
       "type": "chrome",
       "request": "launch",

@@ -1,0 +1,52 @@
+<div class="console-wrapper">
+  <div class="console-header">
+    <h2>🎛️ RadioGallo - Cabina de Control</h2>
+    <div class="live-indicator" [class.on-air]="isTransmitting">
+      {{ isTransmitting ? '🔴 EN VIVO' : '⚪ OFF AIR' }}
+    </div>
+  </div>
+
+  <div class="control-section">
+    <label>🎙️ Micrófono</label>
+    <select [(ngModel)]="selectedMicId" (change)="onMicChange()">
+    @for (device of availableMics; track device.deviceId) {
+    <option [value]="device.deviceId">
+        {{ device.label || 'Micrófono Genérico' }}
+    </option>
+    }
+    </select>
+    @if (micActive) {
+    <small class="active-text">Mic listo</small>
+    } @else {
+    <small>Selecciona mic</small>
+    }
+
+  </div>
+
+  <div class="control-section">
+    <label>🎵 Música (Apps)</label>
+    <button class="spotify-btn" (click)="openAppSelector()">
+      Seleccionar Ventana / Pestaña
+    </button>
+    <small [class.active-text]="musicActive">
+      {{ musicActive ? '✅ Audio Recibiéndose' : '⚠️ Sin audio' }}
+    </small>
+  </div>
+
+  <div class="meter-section">
+    <label>Nivel de Salida</label>
+    <div class="meter-box">
+      <div class="meter-bar" 
+           [style.width.%]="volumeLevel"
+           [class.clipping]="volumeLevel > 90">
+      </div>
+    </div>
+  </div>
+
+  <button class="transmit-btn" 
+          (click)="toggleTransmission()" 
+          [class.stop-btn]="isTransmitting"
+          [disabled]="!micActive && !musicActive">
+    {{ isTransmitting ? 'DETENER TRANSMISIÓN' : 'INICIAR TRANSMISIÓN' }}
+  </button>
+</div>

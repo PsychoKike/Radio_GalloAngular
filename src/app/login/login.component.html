@@ -1,0 +1,68 @@
+<div class="container d-flex justify-content-center align-items-center vh-100">
+  <div class="card shadow-lg p-3 mb-5 bg-body rounded" style="width: 22rem;">
+    <div class="card-body">
+      
+      <!-- Logo o Título -->
+      <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">RadioGallo 🐓</h2>
+        <p class="text-muted">Inicia sesión para transmitir</p>
+      </div>
+
+      <!-- Alerta de Error (Sintaxis Nueva @if) -->
+      @if (errorMessage) {
+        <div class="alert alert-danger p-2 text-center" role="alert">
+          {{ errorMessage }}
+        </div>
+      }
+
+      <!-- Formulario -->
+      <form (ngSubmit)="onSubmit()">
+        
+        <!-- Usuario -->
+        <div class="mb-3">
+          <label for="username" class="form-label">Usuario</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="username" 
+            [(ngModel)]="credentials.username" 
+            name="username" 
+            placeholder="Ej: admin"
+            required>
+        </div>
+
+        <!-- Contraseña -->
+        <div class="mb-3">
+          <label for="password" class="form-label">Contraseña</label>
+          <input 
+            type="password" 
+            class="form-control" 
+            id="password" 
+            [(ngModel)]="credentials.password" 
+            name="password" 
+            placeholder="••••••"
+            required>
+        </div>
+
+        <!-- Botón con lógica @if / @else -->
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+            
+            @if (isLoading) {
+              <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              Entrando...
+            } @else {
+              Ingresar
+            }
+
+          </button>
+        </div>
+
+      </form>
+    </div>
+    
+    <div class="card-footer text-center bg-transparent border-0 text-muted">
+      <small>© 2025 RadioGallo Systems</small>
+    </div>
+  </div>
+</div>
