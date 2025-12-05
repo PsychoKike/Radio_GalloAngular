@@ -1,0 +1,50 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="text-primary">📂 Base de Datos de Locutores</h2>
+    <button class="btn btn-outline-primary" (click)="cargarDatos()">🔄 Refrescar</button>
+  </div>
+
+  @if (cargando) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-2 text-muted">Desencriptando archivos del servidor...</p>
+    </div>
+  } @else {
+    
+    @if (locutores.length === 0) {
+      <div class="alert alert-warning">
+        No se encontraron archivos encriptados en el servidor.
+      </div>
+    } @else {
+      <div class="table-responsive shadow rounded">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="bg-dark text-white">
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Ciudad</th>
+              <th>Archivo Origen</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (loc of locutores; track loc.archivo) {
+              <tr>
+                <td class="fw-bold">{{ loc.nombre }}</td>
+                <td>{{ loc.email }}</td>
+                <td>{{ loc.telefono }}</td>
+                <td>
+                  <span class="badge bg-info text-dark">{{ loc.direccion?.ciudad }}</span>
+                </td>
+                <td class="text-muted small">{{ loc.archivo }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+
+  }
+</div>

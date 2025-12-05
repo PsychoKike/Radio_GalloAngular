@@ -1,0 +1,79 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+  <div class="card shadow-lg p-0" style="max-width: 900px; width: 100%;">
+    
+    <div class="card-header bg-primary text-white text-center py-3">
+      <h3 class="mb-0 fw-bold">Registro de Locutor</h3>
+      <small>Ingresa los datos solicitados</small>
+    </div>
+
+    <div class="card-body p-4">
+      <form class="row g-3 needs-validation" (ngSubmit)="onSubmit(miForm)" #miForm="ngForm" [class.was-validated]="miForm.submitted" novalidate>
+        
+        <h5 class="text-secondary border-bottom pb-2 mb-3"> Información Personal</h5>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Nombre Completo</label>
+          <input type="text" class="form-control" name="nombre" [(ngModel)]="locutor.nombre" required>
+          <div class="invalid-feedback">El nombre es obligatorio.</div>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Teléfono</label>
+          <input type="tel" class="form-control" name="telefono" [(ngModel)]="locutor.telefono" required>
+          <div class="invalid-feedback">Teléfono requerido.</div>
+        </div>
+
+        <div class="col-md-12">
+          <label class="form-label fw-semibold">Correo Electrónico</label>
+          <input type="email" class="form-control" name="email" [(ngModel)]="locutor.email" placeholder="ejemplo@radio.com" required>
+          <div class="invalid-feedback">Correo requerido.</div>
+        </div>
+
+        <h5 class="text-secondary border-bottom pb-2 mb-3 mt-4">Domicilio</h5>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Calle y Número</label>
+          <input type="text" class="form-control" name="calle" [(ngModel)]="locutor.direccion.calle" required>
+          <div class="invalid-feedback">La calle es obligatoria.</div>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Colonia</label>
+          <input type="text" class="form-control" name="colonia" [(ngModel)]="locutor.direccion.colonia" required>
+          <div class="invalid-feedback">La colonia es obligatoria.</div>
+        </div>
+
+        <div class="col-md-5">
+          <label class="form-label fw-semibold">Ciudad</label>
+          <input type="text" class="form-control" name="ciudad" [(ngModel)]="locutor.direccion.ciudad" required>
+          <div class="invalid-feedback">Ciudad requerida.</div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Estado</label>
+          <select class="form-select" name="estado" [(ngModel)]="locutor.direccion.estado" required>
+            <option selected disabled value="">Elegir...</option>
+            <option value="AGS">Aguascalientes</option>
+            <option value="CDMX">Ciudad de México</option>
+            <option value="JAL">Jalisco</option>
+            <option value="NL">Nuevo León</option>
+          </select>
+          <div class="invalid-feedback">Selecciona un estado.</div>
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-semibold">C.P.</label>
+          <input type="text" class="form-control" name="cp" [(ngModel)]="locutor.direccion.codigoPostal" required>
+          <div class="invalid-feedback">CP requerido.</div>
+        </div>
+
+        <div class="col-12 mt-4 d-grid">
+          <button class="btn btn-primary btn-lg shadow-sm" type="submit">
+            <i class="bi bi-save me-2"></i> Guardar Locutor
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

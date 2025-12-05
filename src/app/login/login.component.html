@@ -15,10 +15,10 @@
         </div>
       }
 
-      <!-- Formulario -->
+
       <form (ngSubmit)="onSubmit()">
         
-        <!-- Usuario -->
+
         <div class="mb-3">
           <label for="username" class="form-label">Usuario</label>
           <input 
@@ -61,8 +61,25 @@
       </form>
     </div>
     
-    <div class="card-footer text-center bg-transparent border-0 text-muted">
-      <small>© 2025 RadioGallo Systems</small>
+<div class="card-footer text-center bg-white border-top-0 pb-4">
+      
+      <p class="mb-2 text-muted small">¿No tienes cuenta? Regístrate como:</p>
+      
+      <div class="d-flex justify-content-center gap-2 mb-3">
+        
+        <a routerLink="/registro-Loc" class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1">
+          🎧 Oyente
+        </a>
+
+        <a routerLink="/registro-Loc" class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1">
+          🎙️ Locutor
+        </a>
+
+      </div>
+
+      <small class="text-muted border-top pt-2 d-block w-75 mx-auto">
+        © 2025 RadioGallo Systems
+      </small>
     </div>
   </div>
 </div>
