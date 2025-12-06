@@ -1,0 +1,33 @@
+<div class="reproductor-container">
+  <div class="background-overlay"></div>
+
+  <div class="imagen-central-container">
+    <img [src]="imagenPersonalizadaSrc" alt="Imagen Personalizada" class="imagen-central" *ngIf="imagenPersonalizadaSrc">
+    <h1 *ngIf="!imagenPersonalizadaSrc" class="texto-respaldo">RADIO GALLO UAA</h1>
+  </div>
+
+  <div class="barra-reproduccion">
+    
+    <div class="visualizador-sonido">
+      <span class="barra" [class.animado]="estaReproduciendo"></span>
+      <span class="barra" [class.animado]="estaReproduciendo"></span>
+      <span class="barra" [class.animado]="estaReproduciendo"></span>
+      <span class="barra" [class.animado]="estaReproduciendo"></span>
+      <span class="barra" [class.animado]="estaReproduciendo"></span>
+    </div>
+
+    <button class="boton-play-pause" (click)="alternarReproduccion()">
+      <span class="icono-play" *ngIf="!estaReproduciendo">▶</span>
+      <span class="icono-pause" *ngIf="estaReproduciendo">⏸</span>
+    </button>
+
+    <div class="visualizador-sonido">
+      <span class="barra" [class.animado]="estaReproduciendo"></span>
+      <span class="barra" [class.animado]="estaReproduciendo"></span>
+      <span class="barra" [class.animado]="estaReproduciendo"></span>
+      <span class="barra" [class.animado]="estaReproduciendo"></span>
+      <span class="barra" [class.animado]="estaReproduciendo"></span>
+    </div>
+
+  </div>
+</div>

@@ -2,7 +2,13 @@
   <div class="card shadow-lg p-0" style="max-width: 900px; width: 100%;">
     
     <div class="card-header bg-primary text-white text-center py-3">
-      <h3 class="mb-0 fw-bold">Registro de Locutor</h3>
+      <h3 class="mb-0 fw-bold">
+        @if (esOyente) {
+          Registro de Oyente 🎧
+        } @else {
+          Registro de Locutor 🎙️
+        }
+      </h3>
       <small>Ingresa los datos solicitados</small>
     </div>
 
@@ -67,9 +73,19 @@
           <div class="invalid-feedback">CP requerido.</div>
         </div>
 
-        <div class="col-12 mt-4 d-grid">
-          <button class="btn btn-primary btn-lg shadow-sm" type="submit">
-            <i class="bi bi-save me-2"></i> Guardar Locutor
+        <div class="col-12 mt-4 d-flex gap-2">
+          
+          <button type="button" class="btn btn-secondary btn-lg shadow-sm flex-fill" (click)="cancelar()">
+            Cancelar
+          </button>
+
+          <button class="btn btn-primary btn-lg shadow-sm flex-fill" type="submit">
+            <i class="bi bi-save me-2"></i> 
+            @if (esOyente) {
+               Registrar Oyente
+            } @else {
+               Guardar Locutor
+            }
           </button>
         </div>
 
