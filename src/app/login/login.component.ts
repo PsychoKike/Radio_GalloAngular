@@ -30,31 +30,36 @@ export class LoginComponent {
 
 
   onSubmit() {
-    if (!this.captchaToken) {
-      this.errorMessage = 'Por favor completa el reCAPTCHA';
-      return;
-    }
-
-    this.isLoading = true;
-    this.errorMessage = '';
-
-    this.authService.login({
-      ...this.credentials,
-      captcha: this.captchaToken
-    }).subscribe({
-      next: (response) => {
-        console.log('Login correcto:', response);
-        localStorage.setItem('token', response.token);
-        this.isLoading = false;
-        this.router.navigate(['/dashboard']);
-      },
-      error: (error) => {
-        console.error('Error:', error);
-        this.errorMessage = 'Usuario o contraseña incorrectos';
-        this.isLoading = false;
-      }
-    });
+  if (!this.captchaToken) {
+    this.errorMessage = 'Por favor completa el reCAPTCHA';
+    return;
   }
+
+  this.isLoading = true;
+  this.errorMessage = '';
+
+  this.authService.login({
+    ...this.credentials,
+    captcha: this.captchaToken
+  }).subscribe({
+    next: (response) => {
+      console.log('Login correcto:', response);
+      
+      // Aquí NO usas localStorage
+      // Si quieres guardar info del usuario, dímelo y te doy alternativas
+
+      this.isLoading = false;
+      this.router.navigate(['/radio']);
+    },
+
+    error: (error) => {
+      console.error('Error:', error);
+      this.errorMessage = 'Usuario o contraseña incorrectos';
+      this.isLoading = false;
+    }
+  });
+}
+
 }
 
 

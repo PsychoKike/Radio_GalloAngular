@@ -69,12 +69,12 @@
       <p class="mb-2 text-muted small">¿No tienes cuenta? Regístrate como:</p>
       
       <div class="d-flex justify-content-center gap-2 mb-3">
-        
-        <a routerLink="/registro-Loc" class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1">
+  
+        <a routerLink="/registro-Loc" [queryParams]="{ tipo: 'oyente' }" class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-1">
           🎧 Oyente
         </a>
 
-        <a routerLink="/registro-Loc" class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1">
+        <a routerLink="/registro-Loc" [queryParams]="{ tipo: 'locutor' }" class="btn btn-outline-primary btn-sm d-flex align-items-center gap-1">
           🎙️ Locutor
         </a>
 
