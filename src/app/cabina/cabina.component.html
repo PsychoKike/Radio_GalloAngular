@@ -1,0 +1,61 @@
+<div class="container-fluid min-vh-100 bg-black text-white p-4 d-flex flex-column align-items-center justify-content-center">
+  
+  <div *ngIf="enVivo" class="alert alert-danger w-100 text-center fw-bold animate-pulse mb-4" role="alert" style="max-width: 800px;">
+    🔴 EN VIVO - CABINA VIRTUAL {{ enPausa ? '(PAUSADO)' : '' }}
+  </div>
+
+  <div *ngIf="!enVivo" class="alert alert-secondary w-100 text-center fw-bold mb-4" role="alert" style="max-width: 800px;">
+    ⚫ FUERA DEL AIRE - PREPARANDO TRANSMISIÓN
+  </div>
+
+  <div class="row w-100" style="max-width: 1000px;">
+    
+    <div class="col-md-8 mb-3">
+      <div class="card bg-dark border-secondary h-100">
+        <div class="card-body text-center d-flex flex-column justify-content-center align-items-center">
+          <h2 class="mb-4">Controles de Transmisión</h2>
+          
+          <div class="d-flex gap-4">
+            <button class="btn rounded-circle p-4 shadow-lg border-2" 
+                    [ngClass]="enVivo && !enPausa ? 'btn-danger' : 'btn-outline-light'"
+                    (click)="iniciarTransmision()">
+              <span style="font-size: 2rem;">🎙️</span>
+            </button>
+            
+            <button class="btn btn-outline-warning rounded-circle p-4 shadow-lg border-2"
+                    (click)="pausarTransmision()">
+              <span style="font-size: 2rem;">⏸</span>
+            </button>
+
+            <button class="btn btn-outline-danger rounded-circle p-4 shadow-lg border-2"
+                    (click)="detenerTransmision()">
+              <span style="font-size: 2rem;">⏹</span>
+            </button>
+          </div>
+          
+          <div class="mt-4 fw-bold fs-3" [class.text-success]="enVivo" [class.text-muted]="!enVivo">
+            Tiempo al aire: {{ tiempoFormateado }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3">
+      <div class="card bg-dark border-secondary h-100">
+        <div class="card-header border-secondary text-primary d-flex justify-content-between">
+          <span>Oyentes Conectados</span>
+          <span class="badge bg-primary">{{ oyentes.length }}</span>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-dark text-white border-secondary" *ngFor="let oyente of oyentes">
+              👤 {{ oyente.nombre }} 
+              <span class="badge bg-secondary ms-2" style="font-size: 0.7em;">{{ oyente.estado }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

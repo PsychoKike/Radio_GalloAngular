@@ -1,0 +1,48 @@
+/* Contenedor general */
+.container h2 {
+  letter-spacing: 1px;
+}
+
+/* Tarjetas */
+.tema-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: #1b1b1b; /* un tono neutro gris oscuro */
+}
+
+.tema-card img {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover: efecto suave */
+.tema-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.35);
+}
+
+.tema-card:hover img {
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+/* Texto */
+.tema-card .card-title {
+  font-size: 1.05rem;
+}
+
+.tema-card .card-text {
+  line-height: 1.4;
+  color: #cfcfcf !important;
+}
+
+/* Botón */
+.tema-card button {
+  border-radius: 8px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tema-card button:hover {
+  background-color: #212eda;
+  color: #fff;
+}
