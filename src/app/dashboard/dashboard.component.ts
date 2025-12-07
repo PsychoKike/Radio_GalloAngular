@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
+
 export class DashboardComponent implements OnInit, OnDestroy {
 availableMics: MediaDeviceInfo[] = [];
   selectedMicId: string = '';
@@ -16,6 +17,8 @@ availableMics: MediaDeviceInfo[] = [];
   musicActive = false;
   volumeLevel = 0; 
   isTransmitting = false;
+  musiVol=100;
+  VozVol=100;
 
   constructor(private mixer: AudioMixerService) {}
   ngOnDestroy(): void {
@@ -27,6 +30,15 @@ availableMics: MediaDeviceInfo[] = [];
     if (this.availableMics.length > 0) {
       this.selectedMicId = this.availableMics[0].deviceId;
     }
+  }
+
+  updateMicVolume(){
+    this.mixer.setMicVolume(this.VozVol)
+  }
+
+  
+  updateMusicVolume(){
+    this.mixer.setMusicVolume(this.musiVol)
   }
 
   async onMicChange() {
@@ -64,4 +76,5 @@ availableMics: MediaDeviceInfo[] = [];
     };
     animate();
   }
+  
 }

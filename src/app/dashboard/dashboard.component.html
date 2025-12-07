@@ -1,52 +1,74 @@
-<div class="console-wrapper">
-  <div class="console-header">
-    <h2>🎛️ RadioGallo - Cabina de Control</h2>
-    <div class="live-indicator" [class.on-air]="isTransmitting">
-      {{ isTransmitting ? '🔴 EN VIVO' : '⚪ OFF AIR' }}
-    </div>
-  </div>
+<div class="container py-4">
+  <h2 class="mb-4 text-center">🎛️ Consola de Mezcla</h2>
 
-  <div class="control-section">
-    <label>🎙️ Micrófono</label>
-    <select [(ngModel)]="selectedMicId" (change)="onMicChange()">
-    @for (device of availableMics; track device.deviceId) {
-    <option [value]="device.deviceId">
-        {{ device.label || 'Micrófono Genérico' }}
-    </option>
-    }
-    </select>
-    @if (micActive) {
-    <small class="active-text">Mic listo</small>
-    } @else {
-    <small>Selecciona mic</small>
-    }
+  <div class="row g-4">
+    
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          🎙️ Micrófono
+        </div>
+        <div class="card-body">
+          <select class="form-select mb-3" [(ngModel)]="selectedMicId" (change)="onMicChange()">
+             @for (device of availableMics; track device.deviceId) {
+               <option [value]="device.deviceId">{{ device.label || 'Micro Genérico' }}</option>
+             }
+          </select>
 
-  </div>
-
-  <div class="control-section">
-    <label>🎵 Música (Apps)</label>
-    <button class="spotify-btn" (click)="openAppSelector()">
-      Seleccionar Ventana / Pestaña
-    </button>
-    <small [class.active-text]="musicActive">
-      {{ musicActive ? '✅ Audio Recibiéndose' : '⚠️ Sin audio' }}
-    </small>
-  </div>
-
-  <div class="meter-section">
-    <label>Nivel de Salida</label>
-    <div class="meter-box">
-      <div class="meter-bar" 
-           [style.width.%]="volumeLevel"
-           [class.clipping]="volumeLevel > 90">
+          <label for="micRange" class="form-label fw-bold">Volumen Voz</label>
+          <div class="d-flex align-items-center">
+            <input type="range" 
+                   class="form-range flex-grow-1" 
+                   min="0" max="100" 
+                   id="micRange"
+                   [(ngModel)]="VozVol" 
+                   (input)="updateMicVolume()"
+                   [disabled]="!micActive">
+            
+            <output class="ms-3 fw-bold badge bg-secondary" style="width: 50px;">
+              {{ VozVol }}%
+            </output>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <button class="transmit-btn" 
-          (click)="toggleTransmission()" 
-          [class.stop-btn]="isTransmitting"
-          [disabled]="!micActive && !musicActive">
-    {{ isTransmitting ? 'DETENER TRANSMISIÓN' : 'INICIAR TRANSMISIÓN' }}
-  </button>
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+          🎵 Música (Pestaña/Ventana)
+        </div>
+        <div class="card-body">
+          <button class="btn btn-outline-success w-100 mb-3" (click)="openAppSelector()">
+             {{ musicActive ? 'Fuente Seleccionada ✅' : 'Seleccionar Audio...' }}
+          </button>
+
+          <label for="musicRange" class="form-label fw-bold">Volumen Fondo</label>
+          <div class="d-flex align-items-center">
+            <input type="range" 
+                   class="form-range flex-grow-1" 
+                   min="0" max="100" 
+                   id="musicRange" 
+                   [(ngModel)]="musiVol" 
+                   (input)="updateMusicVolume()"
+                   [disabled]="!musicActive">
+
+            <output class="ms-3 fw-bold badge bg-secondary" style="width: 50px;">
+              {{ musiVol }}%
+            </output>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div> <div class="row mt-4">
+    <div class="col-12">
+      <button class="btn btn-lg w-100 py-3" 
+              (click)="toggleTransmission()" 
+              [class.btn-danger]="isTransmitting"
+              [class.btn-dark]="!isTransmitting">
+        {{ isTransmitting ? '🔴 DETENER TRANSMISIÓN' : '⚪ INICIAR TRANSMISIÓN' }}
+      </button>
+    </div>
+  </div>
 </div>

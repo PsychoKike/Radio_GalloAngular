@@ -30,7 +30,11 @@ export class AudioMixerService {
     this.micGain = this.audioContext.createGain();
     this.sysGain = this.audioContext.createGain();
     this.mixGain = this.audioContext.createGain();
+    
     this.mixGain.gain.value = 1.0;
+    this.micGain.gain.value = 1.0;
+    this.sysGain.gain.value = 1.0;
+
 
     this.analyser = this.audioContext.createAnalyser();
     this.analyser.fftSize = 256;
@@ -43,6 +47,17 @@ export class AudioMixerService {
     this.sysGain.connect(this.mixGain);
     this.mixGain.connect(this.analyser);
     this.analyser.connect(this.mediaStreamDestination);
+  }
+
+  //Controladores de Volumen
+  setMicVolume(porcentaje: number){
+    const volume=Math.max(0,Math.min(1,porcentaje/100));
+    this.micGain.gain.setValueAtTime(volume,this.audioContext.currentTime);
+  }
+
+  setMusicVolume(porcentaje: number){
+    const volume=Math.max(0,Math.min(1,porcentaje/100));
+    this.sysGain.gain.setValueAtTime(volume,this.audioContext.currentTime);
   }
 
   // --- 1. SELECCIÓN DE MICRÓFONOS ---
@@ -137,7 +152,7 @@ export class AudioMixerService {
       await this.audioContext.resume();
     }
 
-    const UBUNTU_IP = '192.168.50.69';
+    const UBUNTU_IP = '192.168.1.9';
     const PORT = '3000';
 
     if (!this.socket || this.socket.readyState !== WebSocket.OPEN) {
