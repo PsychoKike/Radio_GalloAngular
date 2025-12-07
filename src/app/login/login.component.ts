@@ -25,14 +25,16 @@ export class LoginComponent {
     this.errorMessage = '';
 
     this.authService.login(this.credentials).subscribe({
+      // En tu login.component.ts dentro del subscribe > next:
+
       next: (response) => {
         console.log('Login correcto:', response);
-        // Guardamos el token (si hubiera)
         localStorage.setItem('token', response.token);
+        // OJO: Cambia esto según tu prueba: 'oyente' o 'locutor'
+        localStorage.setItem('tipoUsuario', 'locutor'); 
         this.isLoading = false;
-        
-        // Redirigir al dashboard
-        this.router.navigate(['/dashboard']); 
+        // Redirigir a la vista de radio
+        this.router.navigate(['/radio']); 
       },
       error: (error) => {
         console.error('Error:', error);

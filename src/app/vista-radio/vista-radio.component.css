@@ -1,0 +1,145 @@
+/* 1. CONTENEDOR PRINCIPAL */
+.reproductor-container {
+  position: relative;
+  width: 100%;
+  
+  /* --- CAMBIO IMPORTANTE --- */
+  /* Restamos los pixeles que mide aprox el Navbar (ej. 70px) */
+  /* Esto hace que la radio ocupe solo el espacio SOBRANTE */
+  height: calc(100vh - 70px); 
+  /* ------------------------- */
+
+  background-color: #121212;
+  overflow: hidden;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* El resto de tu CSS se queda IGUAL (lo pego para que no pierdas nada) */
+
+/* Fondo */
+.reproductor-container .background-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/imagenes/radio.jpg');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.35);
+  z-index: 0;
+}
+
+.reproductor-container .background-overlay::after {
+  content: none;
+}
+
+/* 2. IMAGEN CENTRAL */
+.reproductor-container .imagen-central-container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.reproductor-container .imagen-central-container .imagen-central {
+  max-width: 260px;
+  height: auto;
+  display: block;
+  filter: none !important;
+  box-shadow: none !important;
+  border-radius: 10px;
+}
+
+.reproductor-container .imagen-central-container .texto-respaldo {
+  display: none;
+}
+
+/* 3. BARRA DE REPRODUCCIÓN */
+.reproductor-container .barra-reproduccion {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 600px;
+  height: 100px;
+  background-color: rgba(56, 52, 198, 0.85);
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  box-shadow: 0 10px 30px rgba(0, 4, 73, 0.45);
+  backdrop-filter: blur(8px);
+}
+
+/* VISUALIZADOR DE SONIDO */
+.visualizador-sonido {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 55px;
+  justify-content: center;
+}
+
+.visualizador-sonido .barra {
+  width: 9px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+  transform: scaleY(0.15);
+  transition: transform 0.2s ease;
+}
+
+.visualizador-sonido .barra.animado {
+  animation: onda-sonido 1s infinite ease-in-out;
+  background-color: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.5);
+}
+
+.visualizador-sonido .barra:nth-child(1) { animation-delay: 0.0s; }
+.visualizador-sonido .barra:nth-child(2) { animation-delay: 0.2s; }
+.visualizador-sonido .barra:nth-child(3) { animation-delay: 0.4s; }
+.visualizador-sonido .barra:nth-child(4) { animation-delay: 0.1s; }
+.visualizador-sonido .barra:nth-child(5) { animation-delay: 0.3s; }
+
+@keyframes onda-sonido {
+  0% { transform: scaleY(0.15); }
+  50% { transform: scaleY(1); }
+  100% { transform: scaleY(0.15); }
+}
+
+/* BOTÓN PLAY/PAUSE */
+.reproductor-container .barra-reproduccion .boton-play-pause {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 4px solid rgba(255,255,255,0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+.reproductor-container .barra-reproduccion .boton-play-pause:hover {
+  transform: scale(1.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.reproductor-container .barra-reproduccion .boton-play-pause:active {
+  transform: scale(0.9);
+}
+
+.icono-play, .icono-pause {
+  color: #ff3b3b;
+  font-size: 2.2rem;
+}
+
+.icono-play { margin-left: 6px; }
