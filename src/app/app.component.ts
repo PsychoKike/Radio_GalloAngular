@@ -7,6 +7,8 @@ import { filter } from 'rxjs/operators';
 import { VistaRadioComponent } from './vista-radio/vista-radio.component';
 import { LoginComponent } from "./login/login.component";
 import { RegistroComponent } from "./registro/registro.component";
+import { PropuestaComponent } from './propuesta/propuesta.component';
+import { VentasComponent } from './ventas/ventas.component';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +20,8 @@ import { RegistroComponent } from "./registro/registro.component";
     LoginComponent, 
     RegistroComponent, 
     VistaRadioComponent,
-
+    PropuestaComponent,
+    VentasComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

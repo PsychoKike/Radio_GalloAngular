@@ -18,6 +18,11 @@
             <li class="nav-item">
               <a class="nav-link" routerLink="/temas" routerLinkActive="active">Temas</a>
             </li>
+            
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/ventas" routerLinkActive="active">Ventas</a>
+            </li>
+            
             <li class="nav-item">
               <a class="nav-link" routerLink="/perfil" routerLinkActive="active">Mi Perfil</a>
             </li>
@@ -46,7 +51,7 @@
 }
 
 <div [style.padding-top]="mostrarNavbar ? '70px' : '0'">
-  <router-outlet></router-outlet>
+  <!--<router-outlet></router-outlet>-->
   <!--<app-vista-radio></app-vista-radio>-->
 
   <!--<app-cabina></app-cabina>-->
@@ -54,4 +59,8 @@
   <!--<app-perfil></app-perfil>-->
 
   <!--<app-temas></app-temas>-->
+
+  <app-propuesta></app-propuesta>
+
+  <!--<app-ventas></app-ventas>-->
 </div>

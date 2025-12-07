@@ -1,0 +1,76 @@
+<div class="container mt-5 pt-4 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center py-3">
+          <h3 class="mb-0">💰 Vender Artículo</h3>
+          <small>Publica tu producto en RadioGallo</small>
+        </div>
+        
+        <div class="card-body p-4">
+          <form (ngSubmit)="onSubmit()">
+
+            <h5 class="text-secondary border-bottom pb-2 mb-3">Información del Artículo</h5>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold">Nombre Completo del Vendedor</label>
+              <input type="text" class="form-control" [(ngModel)]="formulario.nombreCompleto" name="nombre" placeholder="Tu nombre" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-bold">¿Qué deseas vender?</label>
+              <textarea class="form-control" [(ngModel)]="formulario.descripcionProducto" name="descripcion" rows="3" placeholder="Describe tu producto (Ej: Guitarra acústica seminueva...)" required></textarea>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label fw-bold">Foto del Producto</label>
+              <input type="file" class="form-control" (change)="onImagenSeleccionada($event)" accept="image/*" required>
+              <div class="form-text">Sube una imagen clara de lo que vendes.</div>
+            </div>
+
+            <div class="bg-light p-3 rounded border">
+              <h5 class="text-secondary border-bottom pb-2 mb-3">💳 Datos de Pago (Costo: $20.00 MXN)</h5>
+              
+              <div class="mb-3">
+                <label class="form-label">Nombre del Titular</label>
+                <input type="text" class="form-control" [(ngModel)]="formulario.tarjeta.nombreTitular" name="tarjetaNombre" placeholder="Como aparece en la tarjeta" required>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Número de Tarjeta</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-credit-card"></i></span>
+                  <input type="text" class="form-control" [(ngModel)]="formulario.tarjeta.numero" name="tarjetaNumero" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Vencimiento (MM/AA)</label>
+                  <input type="text" class="form-control" [(ngModel)]="formulario.tarjeta.fechaVencimiento" name="tarjetaFecha" placeholder="MM/AA" maxlength="5" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">CVV</label>
+                  <input type="password" class="form-control" [(ngModel)]="formulario.tarjeta.cvv" name="tarjetaCvv" placeholder="123" maxlength="4" required>
+                </div>
+              </div>
+              
+              <div class="alert alert-warning py-2 small">
+                <i class="bi bi-lock-fill"></i> Transacción segura simulada. Se cobrarán $20 pesos por la publicación.
+              </div>
+            </div>
+
+            <div class="d-grid mt-4">
+              <button type="submit" class="btn btn-success btn-lg">
+                Pagar y Publicar
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

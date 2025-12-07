@@ -1,34 +1,40 @@
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-  <div class="card bg-dark text-white border-secondary shadow-lg p-4" style="max-width: 600px; width: 100%;">
+<div class="contenedor-propuesta">
+  
+  <div class="tarjeta-custom p-4">
     <div class="card-body">
-      <h3 class="card-title text-center mb-4 text-primary">📝 Nueva Propuesta de Programa</h3>
+      
+      <h3 class="titulo-principal text-center mb-4">
+        📝 Nueva Propuesta de Programa
+      </h3>
       
       <form>
         <div class="mb-3">
-          <label class="form-label text-secondary">Título del Programa</label>
-          <input type="text" class="form-control bg-secondary text-white border-0" placeholder="Ej: La Hora del Gallo">
+          <label class="label-custom">Título del Programa</label>
+          <input type="text" class="input-custom" placeholder="Ej: La Hora del Gallo">
         </div>
 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label class="form-label text-secondary">Fecha Sugerida</label>
-            <input type="date" class="form-control bg-secondary text-white border-0">
+            <label class="label-custom">Fecha Sugerida</label>
+            <input type="date" class="input-custom">
           </div>
           <div class="col-md-6 mb-3">
-            <label class="form-label text-secondary">Horario</label>
-            <input type="time" class="form-control bg-secondary text-white border-0">
+            <label class="label-custom">Horario</label>
+            <input type="time" class="input-custom">
           </div>
         </div>
 
         <div class="mb-4">
-          <label class="form-label text-secondary">Descripción del Tema</label>
-          <textarea class="form-control bg-secondary text-white border-0" rows="4" placeholder="¿De qué hablarás hoy?"></textarea>
+          <label class="label-custom">Descripción del Tema</label>
+          <textarea class="input-custom" rows="4" placeholder="¿De qué hablarás hoy? Describe tu idea..."></textarea>
         </div>
 
         <div class="d-grid">
-          <button class="btn btn-primary btn-lg">Enviar Propuesta 🚀</button>
+          <button class="btn-enviar">Enviar Propuesta </button>
         </div>
       </form>
+
     </div>
   </div>
+
 </div>

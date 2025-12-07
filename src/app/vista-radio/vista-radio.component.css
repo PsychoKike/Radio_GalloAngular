@@ -1,17 +1,18 @@
-/* 1. CONTENEDOR PRINCIPAL */
 .reproductor-container {
   position: relative;
   width: 100%;
   
-  /* --- CAMBIO IMPORTANTE --- */
-  /* Restamos los pixeles que mide aprox el Navbar (ej. 70px) */
-  /* Esto hace que la radio ocupe solo el espacio SOBRANTE */
+  /* ANTES TENÍAS ESTO: */
+  /* height: 100vh; */ 
+
+  /* --- CAMBIA ESA LÍNEA POR ESTA: --- */
+  /* Esto significa: El alto total MENOS los 70px de la barra */
   height: calc(100vh - 70px); 
-  /* ------------------------- */
+  /* -------------------------------- */
 
   background-color: #121212;
+  /* ... el resto de tu código sigue igual ... */
   overflow: hidden;
-  
   display: flex;
   flex-direction: column;
   justify-content: center;
