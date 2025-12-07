@@ -19,6 +19,7 @@ export class RegistroComponent implements OnInit {
   locutor = {
     nombre: '',
     email: '',
+    password: '',
     telefono: '',
     direccion: {
       calle: '',

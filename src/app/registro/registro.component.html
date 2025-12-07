@@ -35,6 +35,28 @@
           <div class="invalid-feedback">Correo requerido.</div>
         </div>
 
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Contraseña</label>
+          <input 
+            type="password" 
+            class="form-control" 
+            name="password" 
+            [(ngModel)]="locutor.password" 
+            required 
+            minlength="6">
+          <div class="invalid-feedback">La contraseña es obligatoria (mín. 6 caracteres).</div>
+        </div>
+
+        <div class="col-md-6">
+            <label class="form-label fw-semibold">Confirmar Contraseña</label>
+            <input 
+              type="password" 
+              class="form-control" 
+              name="confirmPassword" 
+              ngModel 
+              required> <div class="invalid-feedback">Confirma tu contraseña.</div>
+        </div>
+
         <h5 class="text-secondary border-bottom pb-2 mb-3 mt-4">Domicilio</h5>
 
         <div class="col-md-6">
