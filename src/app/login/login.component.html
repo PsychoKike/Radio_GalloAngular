@@ -39,6 +39,11 @@
             required>
         </div>
 
+        <re-captcha
+          (resolved)="onCaptchaResolved($event)"
+          siteKey="6LfKlyMsAAAAAIeaUBX2jtjpv1mwYMI9VH4QN2UN">
+        </re-captcha>
+        <!-- Botón con lógica @if / @else -->
         <div class="d-grid gap-2">
           <button type="submit" class="btn btn-primary" [disabled]="isLoading">
             
