@@ -46,10 +46,36 @@
               <div class="invalid-feedback">Teléfono requerido.</div>
             </div>
 
-            <div class="col-md-6">
+            <!-- CORREO ELECTRÓNICO -->
+            <div class="col-md-12">
               <label class="form-label fw-semibold">Correo Electrónico</label>
-              <input type="email" class="form-control rounded-3" name="email" [(ngModel)]="usuario.email" required>
+
+              <div class="input-group">
+                <input
+              #emailInput
+              type="email"
+              class="form-control"
+              name="email"
+              [(ngModel)]="usuario.email"
+              (input)="onEmailChange(emailInput.value)"
+              required
+            >
+
+              </div>
+
               <div class="invalid-feedback">Correo requerido.</div>
+
+              <!-- Mostrar mensaje dinámico -->
+              <div *ngIf="correoStatus !== null" class="mt-1">
+                <small 
+                  [ngClass]="{
+                    'text-success': correoStatus === 'valid',
+                    'text-danger': correoStatus === 'invalid'
+                  }"
+                >
+                  {{ correoMensaje }}
+                </small>
+              </div>
             </div>
 
             <div class="col-md-6">
