@@ -4,18 +4,14 @@ import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  imports: [FormsModule,RouterLink],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  selector: 'app-login-admin',
+  standalone: true,
+  imports: [FormsModule, RouterLink],
+  templateUrl: './login-admin.component.html',
+  styleUrl: './login-admin.component.css'
 })
-export class LoginComponent {
-  credentials = {
-    username: '',
-    password: '',
-    
-  };
-  
+export class LoginAdminComponent {
+  credentials = { username: '', password: '' };
   errorMessage = '';
   isLoading = false;
 
@@ -26,20 +22,17 @@ export class LoginComponent {
     this.errorMessage = '';
 
     this.authService.login(this.credentials).subscribe({
-      // En tu login.component.ts dentro del subscribe > next:
-
       next: (response) => {
-        console.log('Login correcto:', response);
+        // Guardamos token y rol
         localStorage.setItem('token', response.token);
-        // OJO: Cambia esto según tu prueba: 'oyente' o 'locutor'
-        localStorage.setItem('tipoUsuario', 'locutor'); 
+        localStorage.setItem('tipoUsuario', 'admin'); 
+        
         this.isLoading = false;
-        // Redirigir a la vista de radio
-        this.router.navigate(['/radio']); 
+        // REDIRECCIÓN: Manda directo a las vistas de admin
+        this.router.navigate(['/cabina']); 
       },
       error: (error) => {
-        console.error('Error:', error);
-        this.errorMessage = 'Usuario o contraseña incorrectos';
+        this.errorMessage = 'Credenciales de administrador inválidas';
         this.isLoading = false;
       }
     });
