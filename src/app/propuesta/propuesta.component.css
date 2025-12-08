@@ -1,0 +1,103 @@
+/* VARIABLES: Tema Claro (Light Mode) */
+:host {
+  --color-fondo-pagina: #f0f2f5;   /* Fondo gris muy suave (tipo Facebook/LinkedIn) */
+  --color-tarjeta: #ffffff;        /* Tarjeta blanca pura */
+  --color-borde: #dee2e6;          /* Borde gris tenue */
+  --color-texto-principal: #212529; /* Texto casi negro (buena lectura) */
+  --color-texto-secundario: #6c757d; /* Texto gris para etiquetas */
+  --color-primario: #0d6efd;       /* Azul (Se mantiene igual) */
+  --color-primario-hover: #0b5ed7; 
+  --color-input-bg: #f8f9fa;       /* Fondo grisáceo para los inputs */
+  --color-input-focus: #ffffff;    /* Fondo blanco al escribir */
+}
+
+/* Contenedor principal */
+.contenedor-propuesta {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--color-fondo-pagina);
+}
+
+/* Estilo de la Tarjeta */
+.tarjeta-custom {
+  background-color: var(--color-tarjeta);
+  border: 1px solid var(--color-borde);
+  border-radius: 15px; 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Sombra suave y difusa */
+  width: 100%;
+  max-width: 600px;
+  overflow: hidden;
+}
+
+.titulo-principal {
+  color: var(--color-primario);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Estilos de los Inputs */
+.label-custom {
+  color: var(--color-texto-secundario);
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.input-custom {
+  background-color: var(--color-input-bg);
+  color: var(--color-texto-principal);
+  border: 1px solid #ced4da; /* Borde visible suave en modo claro */
+  border-radius: 8px;
+  padding: 12px 15px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+/* Efecto al hacer clic en un input */
+.input-custom:focus {
+  background-color: var(--color-input-focus);
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15); /* Resplandor azulado */
+  outline: none;
+  color: var(--color-texto-principal);
+}
+
+/* Placeholder */
+.input-custom::placeholder {
+  color: #adb5bd;
+}
+
+/* IMPORTANTE: Quitamos la inversión de color en los iconos de fecha/hora */
+/* En fondo blanco, los iconos del navegador ya se ven bien por defecto */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: none; /* Ya no invertimos los colores */
+}
+
+/* Botón de Enviar */
+.btn-enviar {
+  background-color: var(--color-primario);
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(13, 110, 253, 0.2);
+}
+
+.btn-enviar:hover {
+  background-color: var(--color-primario-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(13, 110, 253, 0.3);
+}
+
+.btn-enviar:active {
+  transform: translateY(0);
+}

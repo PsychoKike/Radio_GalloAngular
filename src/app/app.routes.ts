@@ -7,6 +7,8 @@ import { TemasComponent } from './temas/temas.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { PropuestaComponent } from './propuesta/propuesta.component';
 import { CabinaComponent } from './cabina/cabina.component';
+import { VentasComponent } from './ventas/ventas.component';
+import { LoginAdminComponent } from './login-admin/login-admin.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,6 +23,8 @@ export const routes: Routes = [
     { path: 'perfil', component: PerfilComponent },
     { path: 'propuesta', component: PropuestaComponent },
     { path: 'cabina', component: CabinaComponent }, // Ruta del locutor
-
+    { path: 'ventas', component: VentasComponent },
+    { path: 'login-admin', component: LoginAdminComponent },
     { path: '**', redirectTo: 'login' }
+
 ];
