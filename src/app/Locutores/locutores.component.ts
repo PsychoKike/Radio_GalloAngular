@@ -2,83 +2,113 @@
 
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common'; 
-// Importamos DatePipe para el formato de fecha en el HTML
-import { PropuestaComponent }   from '../propuesta/propuesta.component'; 
+import { HttpClientModule } from '@angular/common/http'; 
+import { FormsModule } from '@angular/forms'; 
+import { PropuestaComponent } from '../propuesta/propuesta.component'; 
+import { DataService } from '../services/data.service'; 
 
 // --- Interfaces de Datos ---
-
 interface Direccion {
-  calle: string;
-  colonia: string;
-  ciudad: string;
-  estado: string;
-  codigoPostal: string;
+  calle: string;
+  colonia: string;
+  ciudad: string;
+  estado: string;
+  codigoPostal: string;
 }
 
-interface Locutor {
-  id: number;
-  nombreCompleto: string;
-  nombreUsuario: string;
-  telefono: string;
-  email: string;
-  estado: 'activo' | 'inactivo';
-  direccion: Direccion;
+export interface Locutor {
+  id: number;
+  nombreCompleto: string; // 👈 ESTE CAMPO DEBE EXISTIR EN TU JSON
+  nombreUsuario: string;
+  telefono: string;
+  email: string;
+  estado: 'activo' | 'inactivo';
+  direccion: Direccion;
 }
 
-interface Propuesta {
-  id: number;
-  titulo: string;
-  autor: string;
-  fechaCreacion: Date;
-  estado: 'Pendiente' | 'Aprobada' | 'Rechazada';
+export interface Propuesta {
+  id: number;
+  titulo: string;
+  autor: string;
+  fechaCreacion: string | Date; 
+  estado: 'Pendiente' | 'Aprobada' | 'Rechazada';
 }
 
 @Component({
-  selector: 'app-locutores',
-  standalone: true,
-  imports: [
-    CommonModule,
-    DatePipe, // Usamos DatePipe para formatear fechas
-    PropuestaComponent // Importamos el componente de Propuestas 
-  ],
-  templateUrl: './locutores.component.html',
-  styleUrls: ['./locutores.component.css']
+  selector: 'app-locutores',
+  standalone: true,
+  imports: [
+    CommonModule,
+    DatePipe,
+    PropuestaComponent,
+    HttpClientModule, 
+    FormsModule
+  ],
+  templateUrl: './locutores.component.html',
+  styleUrls: ['./locutores.component.css'],
+  providers: [DataService]
 })
 export class LocutoresComponent implements OnInit {
 
-  // Datos simulados para Locutores
-  locutores: Locutor[] = [
-    { id: 1, nombreCompleto: 'Juan Gallo Pérez', nombreUsuario: 'JuanGallo', telefono: '1234567890', email: 'juan@radio.com', estado: 'activo', 
-      direccion: { calle: 'C. Principal #100', colonia: 'Centro', ciudad: 'Aguascalientes', estado: 'Ags', codigoPostal: '20000' } },
-    { id: 2, nombreCompleto: 'Ana Radio Smith', nombreUsuario: 'AnaRadio', telefono: '0987654321', email: 'ana@radio.com', estado: 'inactivo', 
-      direccion: { calle: 'Av. Secundaria #50', colonia: 'Norte', ciudad: 'Guadalajara', estado: 'Jal', codigoPostal: '44000' } },
-    { id: 3, nombreCompleto: 'Carlos Locutora', nombreUsuario: 'CarlosL', telefono: '5551112233', email: 'carlos@radio.com', estado: 'activo', 
-      direccion: { calle: 'Av. Libertad', colonia: 'Sur', ciudad: 'Monterrey', estado: 'NL', codigoPostal: '64000' } }
-  ];
+  locutores: Locutor[] = [];
+  propuestas: Propuesta[] = [];
 
-  // Datos simulados para Propuestas
-  propuestas: Propuesta[] = [
-    { id: 101, titulo: 'Especial Rock en español', autor: 'Juan Gallo', fechaCreacion: new Date('2025-11-20'), estado: 'Aprobada' },
-    { id: 102, titulo: 'Entrevista a banda local', autor: 'Ana Radio', fechaCreacion: new Date('2025-12-01'), estado: 'Pendiente' },
-    { id: 103, titulo: 'Cápsula de historia musical', autor: 'Carlos Locutora', fechaCreacion: new Date('2025-12-05'), estado: 'Rechazada' }
-  ];
+  activeTab: 'locutores' | 'propuestas' = 'locutores'; 
+  isLoading: boolean = false;
+  errorMessage: string = '';
 
-  // Controla la pestaña activa para el HTML
-  activeTab: 'locutores' | 'propuestas' = 'locutores'; 
+  constructor(private dataService: DataService) { } 
 
-  constructor() { } 
+  ngOnInit(): void { 
+    this.cargarDatos();
+  }
 
-  ngOnInit(): void { 
-    // Aquí iría la llamada al servicio para obtener los datos reales
-  }
+  cargarDatos(): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+    
+    // --- Cargar Locutores ---
+    this.dataService.getLocutores().subscribe({
+      next: (data) => {
+        this.locutores = data;
+        
+          // Si ambas llamadas fallan, el isLoading se establecería en false.
+          // Para ser más precisos, necesitamos un contador de peticiones.
+          // Pero por ahora, el siguiente error establecerá isLoading=false.
+      },
+      error: (err) => {
+        console.error('Error al cargar Locutores:', err);
+        this.errorMessage = 'No se pudieron cargar los datos de Locutores.';
+        this.isLoading = false;
+      }
+    });
 
-  editarLocutor(id: number) {
-    console.log(`Abriendo formulario de edición para Locutor ID: ${id}`);
-    // Lógica para editar
-  }
-  
-  // Método para cambiar la pestaña activa
-  selectTab(tab: 'locutores' | 'propuestas'): void {
-    this.activeTab = tab;
-  }
+    // --- Cargar Propuestas ---
+    this.dataService.getPropuestas().subscribe({
+      next: (data) => {
+        // 💡 CORRECCIÓN APLICADA AQUÍ: Restauramos el mapeo de la fecha.
+        this.propuestas = data.map(p => ({
+            ...p,
+            fechaCreacion: p.fechaCreacion ? new Date(p.fechaCreacion) : new Date()
+        })) as Propuesta[]; 
+        
+        this.isLoading = false; // Solo ponemos isLoading en false después de la última petición
+      },
+      error: (err) => {
+        console.error('Error al cargar Propuestas:', err);
+        if (!this.errorMessage) {
+            this.errorMessage = 'No se pudieron cargar los datos de Propuestas.';
+        }
+        this.isLoading = false;
+      }
+    });
+  }
+
+  editarLocutor(id: number) {
+    console.log(`Abriendo formulario de edición para Locutor ID: ${id}`);
+  }
+  
+  selectTab(tab: 'locutores' | 'propuestas'): void {
+    this.activeTab = tab;
+  }
 }
