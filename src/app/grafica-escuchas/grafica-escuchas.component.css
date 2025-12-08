@@ -1,0 +1,36 @@
+/* =========================================
+   Estilos para la Gráfica en Modo Oscuro
+========================================= */
+
+/* 1. Contenedor principal */
+.grafica-container {
+  background-color: transparent; /* Se adapta al fondo de la tarjeta padre */
+  padding: 10px;
+}
+
+/* 2. Forzar el color del texto de los Ejes X e Y */
+/* Esto afecta a los números y las horas */
+:host ::ng-deep .ngx-charts text {
+  fill: #e0e0e0 !important; /* Color gris claro casi blanco */
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+/* 3. Estilo específico para las etiquetas de los ejes ("Tiempo", "Oyentes") */
+:host ::ng-deep .ngx-charts .axis-label {
+  fill: #ffffff !important; /* Blanco puro para los títulos */
+  font-size: 14px !important;
+  font-weight: bold !important;
+}
+
+/* 4. Líneas de la cuadrícula (Grid lines) */
+/* Las hacemos más sutiles para que no distraigan */
+:host ::ng-deep .ngx-charts .gridline-path {
+  stroke: rgba(255, 255, 255, 0.1) !important; /* Blanco muy transparente */
+  stroke-width: 1px;
+}
+
+/* 5. Líneas de los ejes */
+:host ::ng-deep .ngx-charts .axis-line {
+  stroke: rgba(255, 255, 255, 0.3) !important;
+}

@@ -24,7 +24,7 @@ export const routes: Routes = [
     { path: 'temas', component: TemasComponent },
     { path: 'perfil', component: PerfilComponent },
     { path: 'propuesta', component: PropuestaComponent },
-    { path: 'cabina', component: CabinaComponent }, // Ruta del locutor
+    { path: 'cabina', component: DashboardComponent }, // Ruta del locutor
 
     { path: '**', redirectTo: 'login' }
 

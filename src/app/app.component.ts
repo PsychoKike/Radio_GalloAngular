@@ -55,6 +55,7 @@ export class AppComponent implements OnInit {
   actualizarTipoUsuario() {
     if (typeof localStorage !== 'undefined') {
       this.tipoUsuario = localStorage.getItem('tipoUsuario');
+      console.log('El tipo de usuario actual es:', this.tipoUsuario);
     }
   }
 

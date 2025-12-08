@@ -47,6 +47,16 @@ export class LoginComponent {
           console.log('Login correcto:', response);
         
         this.isLoading = false;
+
+      if (response.token) {
+           localStorage.setItem('token', response.token);
+        }
+
+        // 2. Guardar el Tipo de Usuario (para que la Navbar sepa qué mostrar)
+        // Asumimos que response.rol trae 'locutor' u 'oyente'
+        if (response.rol) {
+           localStorage.setItem('tipoUsuario', response.rol);
+        }
         
         // 🚨 ¡CRÍTICO! Lógica de Redirección basada en el Rol devuelto por el servidor
         const rol = response.rol;
