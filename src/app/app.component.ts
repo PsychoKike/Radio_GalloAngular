@@ -9,6 +9,8 @@ import { LoginComponent } from "./login/login.component";
 import { RegistroComponent } from "./registro/registro.component";
 import { PropuestaComponent } from './propuesta/propuesta.component';
 import { VentasComponent } from './ventas/ventas.component';
+import { NavbarComponent } from './navbar/navbar.component';
+
 
 @Component({
   selector: 'app-root',
@@ -16,11 +18,10 @@ import { VentasComponent } from './ventas/ventas.component';
   imports: [
     RouterOutlet, 
     RouterLink, 
-    CommonModule, 
-    LoginComponent, 
+    CommonModule,  
     RegistroComponent, 
     VistaRadioComponent,
-    PropuestaComponent,
+    NavbarComponent,
     VentasComponent
   ],
   templateUrl: './app.component.html',
