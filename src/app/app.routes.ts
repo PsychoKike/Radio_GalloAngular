@@ -10,6 +10,7 @@ import { CabinaComponent } from './cabina/cabina.component';
 import { VentasComponent } from './ventas/ventas.component';
 import { LoginAdminComponent } from './login-admin/login-admin.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { LocutoresComponent } from './Locutores/locutores.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -25,8 +26,10 @@ export const routes: Routes = [
     { path: 'propuesta', component: PropuestaComponent },
     { path: 'cabina', component: CabinaComponent }, // Ruta del locutor
     { path: 'ventas', component: VentasComponent },
+    { path: 'locutores', component: LocutoresComponent },
     { path: 'login-admin', component: LoginAdminComponent },
     {path: 'navbar', component: NavbarComponent},
     { path: '**', redirectTo: 'login' }
 
 ];
+

@@ -32,7 +32,8 @@ export class LoginAdminComponent {
         this.isLoading = false;
         return; // Detiene el proceso si no coincide
     }else{
-       this.router.navigate(['/cabina']); 
+
+       this.router.navigate(['locutores']); 
     }
     
   
