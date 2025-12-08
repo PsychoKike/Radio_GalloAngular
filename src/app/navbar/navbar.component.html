@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-black fixed-top shadow border-bottom border-secondary" style="height: 70px;">
+  <div class="container-fluid">
+    
+    <a class="navbar-brand fw-bold text-danger d-flex align-items-center gap-2" routerLink="/radio">
+      <span>🐓</span> RadioGallo
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        @if (tipoUsuario === 'oyente') {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/radio" routerLinkActive="active">Reproducción</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/temas" routerLinkActive="active">Temas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/ventas" routerLinkActive="active">Ventas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/perfil" routerLinkActive="active">Mi Perfil</a>
+          </li>
+        }
+
+        @if (tipoUsuario === 'locutor') {
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cabina" routerLinkActive="active">Transmitir en Vivo</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/propuesta" routerLinkActive="active">Propuesta</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/perfil" routerLinkActive="active">Mi Perfil</a>
+          </li>
+        }
+
+      </ul>
+      
+      <div class="d-flex">
+        <button class="btn btn-outline-light btn-sm" (click)="cerrarSesion()">Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+</nav>

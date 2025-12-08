@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Router, RouterLink } from '@angular/router';
+// 👇 1. VERIFICA ESTA LÍNEA TAMBIÉN
+import { Router, RouterLink } from '@angular/router'; 
 import { FormsModule } from '@angular/forms';
-import { RecaptchaModule } from 'ng-recaptcha';
+import { RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, RouterLink, RecaptchaModule],
+  standalone: true,
+  imports: [FormsModule, RouterLink, RecaptchaModule, RecaptchaFormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -14,31 +17,33 @@ export class LoginComponent {
 
   credentials = {
     username: '',
-    password: '',
-    
+    password: ''
   };
 
   captchaToken: string | null = null;
   errorMessage = '';
   isLoading = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService, 
+    private router: Router // 👈 Verifica que 'Router' esté en color (significa que lo reconoce)
+  ) {}
 
   onCaptchaResolved(token: string | null) {
-  console.log("CAPTCHA:", token);
-  this.captchaToken = token;
-}
-
-
-  onSubmit() {
-  if (!this.captchaToken) {
-    this.errorMessage = 'Por favor completa el reCAPTCHA';
-    return;
+    console.log("CAPTCHA resuelto:", token);
+    this.captchaToken = token;
+    this.errorMessage = '';
   }
 
-  this.isLoading = true;
-  this.errorMessage = '';
-  
+  onSubmit() {
+    if (!this.captchaToken) {
+      this.errorMessage = 'Por favor completa el reCAPTCHA para continuar.';
+      return;
+    }
+
+    this.isLoading = true;
+    this.errorMessage = '';
+
     this.authService.login({
         ...this.credentials,
         captcha: this.captchaToken
@@ -47,16 +52,6 @@ export class LoginComponent {
           console.log('Login correcto:', response);
         
         this.isLoading = false;
-
-      if (response.token) {
-           localStorage.setItem('token', response.token);
-        }
-
-        // 2. Guardar el Tipo de Usuario (para que la Navbar sepa qué mostrar)
-        // Asumimos que response.rol trae 'locutor' u 'oyente'
-        if (response.rol) {
-           localStorage.setItem('tipoUsuario', response.rol);
-        }
         
         // 🚨 ¡CRÍTICO! Lógica de Redirección basada en el Rol devuelto por el servidor
         const rol = response.rol;
