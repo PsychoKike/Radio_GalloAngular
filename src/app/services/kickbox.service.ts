@@ -4,15 +4,14 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class ZerobounceService {
+export class KickboxService {
 
-  private apiUrl = 'http://localhost:3000/api'; // tu backend
+  private apiUrl = 'http://localhost:3000/api';
 
   constructor(private http: HttpClient) {}
 
   validateEmail(email: string) {
-    // CORRECCIÓN: Usar backticks (`) en lugar de comillas simples o nada
-    return this.http.get(`${this.apiUrl}/validate-email`, {
+    return this.http.get('${this.apiUrl}/validate-email', {
       params: { email }
     });
   }

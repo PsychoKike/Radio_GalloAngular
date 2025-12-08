@@ -1,12 +1,8 @@
 <app-navbar *ngIf="mostrarNavbar"></app-navbar>
 
-<div [style.padding-top]="mostrarNavbar ? '70px' : '0'" style="min-height: 100vh; background-color: #121212;">
-  <router-outlet></router-outlet>
-</div>
-
 <div [style.padding-top]="mostrarNavbar ? '70px' : '0'">
-  <!--<router-outlet></router-outlet>-->
-  <app-vista-radio></app-vista-radio>
+  <router-outlet></router-outlet>
+  <!--<app-vista-radio></app-vista-radio>-->
 
   <!--<app-cabina></app-cabina>-->
 
