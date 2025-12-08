@@ -53,7 +53,7 @@ export class LoginComponent {
         
         if (rol === 'locutor') {
           // Redirigir a la vista del Locutor
-          this.router.navigate(['/cabina']); // Asumo que '/radio' es la vista del locutor
+         this.router.navigate(['/cabina']); // Asumo que '/radio' es la vista del locutor
           console.log('Redirigiendo a vista de Locutor.');
         } else if (rol === 'oyente') {
           // Redirigir a la vista del Oyente
