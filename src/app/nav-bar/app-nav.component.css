@@ -1,0 +1,36 @@
+:host {
+  /* Fondo Blanco */
+  background-color: #ffffff; 
+  /* Sombra sutil para destacar la barra */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.navbar {
+  display: flex;
+  height: 60px;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.nav-links {
+  display: flex;
+}
+
+.nav-link {
+  color: #000000; /* Texto Negro */
+  padding: 15px 20px;
+  text-decoration: none;
+  /* Texto en Negrita */
+  font-weight: bold; 
+  transition: all 0.3s ease;
+  border-bottom: 3px solid transparent;
+}
+
+.nav-link:hover {
+  background-color: #f0f0f0; /* Azul muy claro al pasar el mouse */
+}
+
+.nav-link.active {
+  color: #007bff; /* Texto Azul para la vista activa */
+  border-bottom-color: #007bff; /* Línea inferior Azul */
+}
