@@ -3,26 +3,24 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthService {
-  // Asegúrate de que este puerto coincida con tu Spring Boot (8080 o 3000)
-  private baseUrl = 'http://192.168.193.146:3000'; 
+    // Asegúrate de que este puerto coincida con tu Express (3000 si está en el mismo host)
+    // O usa la IP/Puerto que usaste: http://192.168.193.146:8888 o http://192.168.193.146:3000
+    private baseUrl = 'http://192.168.193.146:3000'; // Ajusta el puerto a 3000 si ahí corre Express
 
-  constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
-  // 1. FUNCIÓN PARA ENTRAR (Login) -> Usa /api/auth/login
-  login(credentials: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/api/auth/login`, credentials);
-  }
+    // 1. FUNCIÓN PARA EL LOGIN (Mantiene el mismo endpoint, pero ahora devuelve el rol)
+    login(credentials: any): Observable<any> {
+        // EL SERVIDOR YA LO TIENE EN /api/auth/login
+        return this.http.post(`${this.baseUrl}/api/auth/login`, credentials);
+    }
 
-  // 2. FUNCIÓN PARA GUARDAR (Registro) -> Usa /api/locutores/guardar
-  // 🔥 ESTA ES LA QUE TE FALTABA O ESTABA MAL
-  guardarLocutor(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/api/locutores/guardar`, data);
-  }
-
-  obtenerLocutores():Observable<any[]>{
-    return this.http.get<any[]>(`${this.baseUrl}/api/locutores`);
-  }
+    // 2. FUNCIÓN UNIVERSAL DE REGISTRO (Nueva ruta en el servidor: /api/auth/register)
+    // El objeto 'data' debe incluir la propiedad 'rol'.
+    register(data: any): Observable<any> {
+        return this.http.post(`${this.baseUrl}/api/auth/register`, data);
+    }
 }
