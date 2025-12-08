@@ -1,37 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Router, RouterLink, ActivatedRoute } from '@angular/router';
+import { Router, RouterLink,ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { KickboxService } from '../services/kickbox.service';
 
-// ⚠️ ASEGÚRATE DE QUE ESTA RUTA SEA CORRECTA O BORRA ESTA LÍNEA SI NO USAS ZEROBOUNCE
-import { ZerobounceService } from '../services/zerobounce.service'; 
+// Regex estricta para validar formato del correo
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/;
 
 @Component({
   selector: 'app-registro',
   standalone: true,
   imports: [FormsModule, RouterLink, CommonModule],
   templateUrl: './registro.component.html',
-  styleUrl: './registro.component.css'
+  styleUrls: ['./registro.component.css']
 })
-export class RegistroComponent implements OnInit {
-
-  // Variables de estado
-  esOyente: boolean = false;
+export class RegistroComponent {
   
-  // Variables para la validación de correo (que te faltaban declarar)
+  esOyente: boolean = false;
+
   correoStatus: string | null = null;
   correoMensaje: string = "";
   emailTimeout: any;
 
-  // Objeto principal
-  usuario = { 
+  usuario = {
     nombre: '',
-    username: '', 
     email: '',
-    password: '',
     telefono: '',
-    rol: '', 
+    rol: '',
+    password: '',
+    registro: '',
     direccion: {
       calle: '',
       colonia: '',
@@ -43,90 +41,87 @@ export class RegistroComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private route: ActivatedRoute,
+    private kickService: KickboxService,
     private router: Router,
-    private zbService: ZerobounceService // Descomenta esto si tienes el servicio
-  ) { }
+    private route: ActivatedRoute,
+  ) {}
 
-  ngOnInit() {
+    ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.esOyente = params['tipo'] === 'oyente';
-      console.log('Modo registro:', this.esOyente ? 'Oyente' : 'Locutor');
     });
   }
 
-  /* * LOGICA DE VALIDACIÓN DE CORREO 
-   * (He cambiado 'this.locutor' por 'this.usuario' para que funcione)
-   */
   validarCorreo() {
-    const email = this.usuario.email; // CORREGIDO: usar this.usuario
+    const email = this.usuario.email;
 
+    // Validación local
     if (!email || email.length < 5) {
       this.correoStatus = null;
       this.correoMensaje = "";
       return;
     }
 
-   
-    this.zbService.validateEmail(email).subscribe({
+    if (!EMAIL_REGEX.test(email)) {
+      this.correoStatus = 'invalid';
+      this.correoMensaje = "Formato de correo incorrecto.";
+      return;
+    }
+
+    // Validación con Kickbox
+    this.kickService.validateEmail(email).subscribe({
       next: (resp: any) => {
-        if (resp.status === 'valid') {
+
+        // API FREE: resp.disposable (true/false)
+        if (resp.disposable === false) {
           this.correoStatus = 'valid';
-          this.correoMensaje = "Correo válido ";
+          this.correoMensaje = "Correo válido.";
         } else {
           this.correoStatus = 'invalid';
-          this.correoMensaje = "Correo inválido ";
+          this.correoMensaje = "Correo temporal o desechable.";
         }
+
       },
       error: () => {
         this.correoStatus = 'invalid';
-        this.correoMensaje = "No se pudo validar el correo";
+        this.correoMensaje = "No se pudo validar el correo.";
       }
     });
   }
 
   onEmailChange(email: string) {
-    this.usuario.email = email; // CORREGIDO: usar this.usuario
+    this.usuario.email = email;
 
     this.correoStatus = null;
     this.correoMensaje = "";
 
-    if (this.emailTimeout) {
-      clearTimeout(this.emailTimeout);
-    }
+    if (this.emailTimeout) clearTimeout(this.emailTimeout);
 
     this.emailTimeout = setTimeout(() => {
       this.validarCorreo();
     }, 1000);
   }
 
-  /*
-   * MÉTODO ONSUBMIT UNIFICADO
-   * He fusionado la lógica: primero valida, luego asigna rol, luego registra.
-   */
   onSubmit(form: NgForm) {
-    if (form.invalid) {
-      console.error('Formulario inválido');
+    if (form.invalid) return;
+
+    this.usuario.rol = this.esOyente ? 'oyente' : 'locutor';
+
+    // No continúa si el correo no es válido
+    if (this.correoStatus !== 'valid') {
+      alert("Correo inválido");
       return;
     }
 
-    // 1. Asignar el rol antes de nada
-    this.usuario.rol = this.esOyente ? 'oyente' : 'locutor';
-
-    // 2. Aquí iría la validación de ZeroBounce si la quieres bloquear el envío
-    if (this.correoStatus !== 'valid') { alert('Correo inválido'); return; }
-
-    // 3. Llamar al servicio de registro
     this.authService.register(this.usuario).subscribe({
-      next: (res) => {
-        // Usamos el rol que nos devuelve el servidor o el local
-        const tipoUsuario = this.esOyente ? 'Oyente' : 'Locutor';
-        alert(`¡${tipoUsuario} registrado con éxito!`);
+      next: () => {
+        const tipo = this.esOyente ? "Oyente" : "Locutor";
+        alert('${tipo} registrado con éxito');
         this.router.navigate(['/login']);
       },
       error: (err) => {
         console.error(err);
-        const errorMsg = err.error && err.error.error ? err.error.error : 'Error al enviar los datos.';
+        const errorMsg = err.error?.error || "Error al registrar.";
         alert(errorMsg);
       }
     });

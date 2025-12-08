@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,17 +15,16 @@ export class NavbarComponent implements OnInit {
   // Variable para saber qué menú pintar
   tipoUsuario: string | null = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    // Al cargar el componente, leemos quién está conectado
-    if (typeof localStorage !== 'undefined') {
-      this.tipoUsuario = localStorage.getItem('tipoUsuario');
-    }
+    this.tipoUsuario = this.authService.getRolUsuario();
   }
 
   cerrarSesion() {
-    localStorage.clear();
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }
