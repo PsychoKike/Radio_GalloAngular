@@ -36,30 +36,30 @@ export class LoginAdminComponent {
     }
     
   
-    this.authService.login(this.credentials).subscribe({
-      next: (response) => {
+    // this.authService.login(this.credentials).subscribe({
+    //   next: (response) => {
         
-        // Verificación de Rol del Back-end
-        if (response.rol === 'administrador') {
+    //     // Verificación de Rol del Back-end
+    //     if (response.rol === 'administrador') {
             
-            localStorage.setItem('auth_token', response.token); 
-            localStorage.setItem('user_role', response.rol);
+    //         localStorage.setItem('auth_token', response.token); 
+    //         localStorage.setItem('user_role', response.rol);
             
-            this.isLoading = false;
-            this.router.navigate(['/cabina']); 
+    //         this.isLoading = false;
+    //         this.router.navigate(['/cabina']); 
             
-        } else {
-             this.errorMessage = 'Acceso denegado: El rol no es administrador.';
-             this.isLoading = false;
-        }
-      },
-      error: (error) => {
-        this.isLoading = false;
-        // Si llegamos aquí, significa que el Back-end rechazó la clave (probablemente por 'bad decrypt')
-        this.errorMessage = 'Fallo de autenticación en el servidor. Revise la clave de cifrado.';
-        console.error('Error del servidor:', error.error?.error);
-      }
-    });
+    //     } else {
+    //          this.errorMessage = 'Acceso denegado: El rol no es administrador.';
+    //          this.isLoading = false;
+    //     }
+    //   },
+    //   error: (error) => {
+    //     this.isLoading = false;
+    //     // Si llegamos aquí, significa que el Back-end rechazó la clave (probablemente por 'bad decrypt')
+    //     this.errorMessage = 'Fallo de autenticación en el servidor. Revise la clave de cifrado.';
+    //     console.error('Error del servidor:', error.error?.error);
+    //   }
+    // });
   }
 }
 // import { Component } from '@angular/core';
