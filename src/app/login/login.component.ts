@@ -37,30 +37,44 @@ export class LoginComponent {
 
   this.isLoading = true;
   this.errorMessage = '';
+  
+    this.authService.login({
+        ...this.credentials,
+        captcha: this.captchaToken
+      }).subscribe({
+        next: (response) => {
+          console.log('Login correcto:', response);
+        
+        this.isLoading = false;
+        
+        // 🚨 ¡CRÍTICO! Lógica de Redirección basada en el Rol devuelto por el servidor
+        const rol = response.rol;
+        
+        if (rol === 'locutor') {
+          // Redirigir a la vista del Locutor
+          this.router.navigate(['/cabina']); // Asumo que '/radio' es la vista del locutor
+          console.log('Redirigiendo a vista de Locutor.');
+        } else if (rol === 'oyente') {
+          // Redirigir a la vista del Oyente
+          this.router.navigate(['/radio']); // **¡DEBES CREAR ESTA RUTA!**
+          console.log('Redirigiendo a vista de Oyente.');
+        } else {
+          // Opción por defecto o error de rol
+          this.router.navigate(['/cabina']); 
+          console.error('Rol desconocido:', rol);
+        }
+      },
 
-  this.authService.login({
-    ...this.credentials,
-    captcha: this.captchaToken
-  }).subscribe({
-    next: (response) => {
-      console.log('Login correcto:', response);
-      
-      // Aquí NO usas localStorage
-      // Si quieres guardar info del usuario, dímelo y te doy alternativas
+      error: (error) => {
+        // ... (manejo de errores)
+      }
+    });
+  }
 
-      this.isLoading = false;
-      this.router.navigate(['/radio']);
-    },
-
-    error: (error) => {
-      console.error('Error:', error);
-      this.errorMessage = 'Usuario o contraseña incorrectos';
-      this.isLoading = false;
-    }
-  });
+  
 }
 
-}
+
 
 
 
