@@ -9,10 +9,12 @@ import { LoginComponent } from "./login/login.component";
 import { RegistroComponent } from "./registro/registro.component";
 import { PropuestaComponent } from './propuesta/propuesta.component';
 import { VentasComponent } from './ventas/ventas.component';
+
+import { CabinaComponent } from "./cabina/cabina.component";
+import { PerfilComponent } from "./perfil/perfil.component";
+import { TemasComponent } from "./temas/temas.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 import { NavbarComponent } from './navbar/navbar.component';
-import { CabinaComponent } from './cabina/cabina.component';
-import { PerfilComponent } from './perfil/perfil.component';
-import { TemasComponent } from './temas/temas.component';
 
 
 @Component({
@@ -28,8 +30,17 @@ import { TemasComponent } from './temas/temas.component';
     CabinaComponent,
     PerfilComponent,
     TemasComponent,
-    VentasComponent
+    VentasComponent,
+     RouterOutlet,
+    RouterLink,
+    CommonModule,
+    LoginComponent,
+    RegistroComponent,
+    VistaRadioComponent,
+    DashboardComponent
   ],
+
+
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -59,6 +70,7 @@ export class AppComponent implements OnInit {
   actualizarTipoUsuario() {
     if (typeof localStorage !== 'undefined') {
       this.tipoUsuario = localStorage.getItem('tipoUsuario');
+      console.log('El tipo de usuario actual es:', this.tipoUsuario);
     }
   }
 
