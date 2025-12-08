@@ -152,8 +152,8 @@ export class AudioMixerService {
       await this.audioContext.resume();
     }
 
-    const UBUNTU_IP = '192.168.193.146';
-    const PORT = '8888';
+    const UBUNTU_IP = '192.168.1.9';
+    const PORT = '3000';
 
     if (!this.socket || this.socket.readyState !== WebSocket.OPEN) {
       this.socket = new WebSocket(`ws://${UBUNTU_IP}:${PORT}`);

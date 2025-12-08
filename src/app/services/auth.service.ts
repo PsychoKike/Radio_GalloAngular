@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   // Asegúrate de que este puerto coincida con tu Spring Boot (8080 o 3000)
-  private baseUrl = 'http://192.168.193.146:8888'; 
+  private baseUrl = 'http://192.168.193.146:3000'; 
 
   constructor(private http: HttpClient) { }
 

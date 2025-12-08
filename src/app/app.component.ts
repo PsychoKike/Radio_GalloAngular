@@ -9,20 +9,23 @@ import { LoginComponent } from "./login/login.component";
 import { RegistroComponent } from "./registro/registro.component";
 import { PropuestaComponent } from './propuesta/propuesta.component';
 import { VentasComponent } from './ventas/ventas.component';
+import { CabinaComponent } from "./cabina/cabina.component";
+import { PerfilComponent } from "./perfil/perfil.component";
+import { TemasComponent } from "./temas/temas.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet, 
-    RouterLink, 
-    CommonModule, 
-    LoginComponent, 
-    RegistroComponent, 
+    RouterOutlet,
+    RouterLink,
+    CommonModule,
+    LoginComponent,
+    RegistroComponent,
     VistaRadioComponent,
-    PropuestaComponent,
-    VentasComponent
-  ],
+    DashboardComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
